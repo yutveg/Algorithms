@@ -3,21 +3,21 @@
 import sys
 
 
-def making_change(amount, denominations):
-    if (amount <= 1):
-        return 1
-    elif(amount < 5):
-        return 1
-    elif(amount == 5):
-        return 2
-    elif(amount == 10):
-        return 4
-    elif(amount < 25):
-        return making_change(amount - denominations[0], denominations) + making_change(amount - denominations[1], denominations) + making_change(amount - denominations[2], denominations)
-    elif(amount < 50):
-        return making_change(amount - denominations[0], denominations) + making_change(amount - denominations[1], denominations) + making_change(amount - denominations[2], denominations) + making_change(amount - denominations[3], denominations)
-    elif(amount >= 50):
-        return making_change(amount - denominations[0], denominations) + making_change(amount - denominations[1], denominations) + making_change(amount - denominations[2], denominations) + making_change(amount - denominations[3], denominations) + making_change(amount - denominations[4], denominations)
+def making_change(amount, denominations, cache=None):
+    if cache is None:
+        cache = [None] * (amount + 1)
+    if(amount == 0):
+        cache[amount] = 1
+    if(amount == 5):
+        cache[amount] = 2
+    if(amount == 10):
+        cache[amount] = 4
+    else:
+        for coin in denominations:
+            cache[amount] = making_change(amount - coin, denominations)
+            return cache
+
+    return cache
 
 
 if __name__ == "__main__":

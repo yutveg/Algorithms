@@ -11,9 +11,7 @@ def eating_cookies(n, cache=None):
     if(n < 0):
         return 0
     if(cache is None):
-        print(n)
         cache = [0] * (n + 1)
-        print(cache)
     if(n <= 1):
         cache[n] = 1
     elif(n == 2):
