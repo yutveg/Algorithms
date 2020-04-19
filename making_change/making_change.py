@@ -4,20 +4,18 @@ import sys
 
 
 def making_change(amount, denominations, cache=None):
-    if cache is None:
-        cache = [None] * (amount + 1)
-    if(amount == 0):
+    if(amount < 0):
+        return 0
+    if(cache is None):
+        cache = [0] * (amount + 1)
+    if(amount <= 1):
         cache[amount] = 1
-    if(amount == 5):
-        cache[amount] = 2
-    if(amount == 10):
-        cache[amount] = 4
     else:
-        for coin in denominations:
-            cache[amount] = making_change(amount - coin, denominations)
-            return cache
+        if(len(denominations) > 0):
+            cache[amount] = sum(making_change(
+                amount - coin, denominations[1:], cache) for coin in denominations)
 
-    return cache
+    return cache[amount]
 
 
 if __name__ == "__main__":
