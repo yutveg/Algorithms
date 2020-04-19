@@ -8,12 +8,12 @@ def making_change(amount, denominations, cache=None):
         return 0
     if(cache is None):
         cache = [0] * (amount + 1)
-    if(amount <= 1):
+    if(amount == 0):
         cache[amount] = 1
     else:
         if(len(denominations) > 0):
             cache[amount] = sum(making_change(
-                amount - coin, denominations[1:], cache) for coin in denominations)
+                amount - denominations[index], denominations, cache) for index, coin in enumerate(denominations))
 
     return cache[amount]
 
