@@ -3,19 +3,14 @@
 import sys
 
 
-def making_change(amount, denominations, cache=None):
-    if(amount < 0):
+# needs to get cached properly
+def making_change(amount, denominations):
+    if amount < 0:
         return 0
-    if(cache is None):
-        cache = [0] * (amount + 1)
-    if(amount == 0):
-        cache[amount] = 1
+    if amount == 0:
+        return 1
     else:
-        if(len(denominations) > 0):
-            cache[amount] = sum(making_change(
-                amount - denominations[index], denominations, cache) for index, coin in enumerate(denominations))
-
-    return cache[amount]
+        return sum(making_change(amount - denominations[i], denominations[i:]) for i in range(len(denominations)))
 
 
 if __name__ == "__main__":
